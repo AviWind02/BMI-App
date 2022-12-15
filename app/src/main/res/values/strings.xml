@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BMI Calculator App</string>
+    <string name="title_for_page_1">Personal Information</string>
+    <string name="label_fn_inputbox">Full name</string>
+    <string name="label_age_inputbox">Age:</string>
+    <string name="hint_fn_inputbox">Input here</string>
+    <string name="label_Height_inputbox">Height:</string>
+    <string name="label_Weight_inputbox">Weight:</string>
+    <string name="unit_1">Imperial</string>
+    <string name="unit_2">Metric</string>
+
+</resources>
