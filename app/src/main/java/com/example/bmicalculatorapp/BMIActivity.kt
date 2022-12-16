@@ -6,9 +6,13 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
+import java.io.File
+import java.io.FileWriter
+import com.google.gson.Gson
 
 class BMIActivity : AppCompatActivity() {
 
+    //All var/val
     lateinit var unitToggle: ToggleButton
 
     lateinit var saveBtn: Button
@@ -30,9 +34,13 @@ class BMIActivity : AppCompatActivity() {
     lateinit var ageInput: EditText
     lateinit var fullnameInput: EditText
 
+    private val values = mutableListOf<listData>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bmiview)
+
         //All the views that are needed and found by ID
         unitToggle = findViewById(R.id.toggleButton);
         unitLabel1 = findViewById(R.id.unit1);
@@ -93,6 +101,7 @@ class BMIActivity : AppCompatActivity() {
     private fun GetBMI() : Float
     {
 
+        //input value
         val wight: Float = weightInput.text.toString().toFloat();
         val Hight: Float = heightInput.text.toString().toFloat();
 
@@ -122,15 +131,29 @@ class BMIActivity : AppCompatActivity() {
         return result;
     }
 
-    private fun FillAndSaveBMIInfo()
-    {
+    private fun FillAndSaveBMIInfo() {
+        //Get the BMI float
         val BMI : Float = GetBMI();
+        //Get the input data
+        val weight: Float = weightInput.text.toString().toFloat();
+        val name: String = fullnameInput.text.toString();
+        val age: Int = ageInput.text.toString().toInt();
+        //Switch data to what i need
         BMILabel.text = BMI.toString();
         rangeLabel.text = getCategory();
         barRange.progress = BMI.toInt();
 
+        //declear the array
+        val info = listData(weight.toString(), BMI.toString(), "12-16-2022", name, age)
+        values.add(info)//Add the values
+        val file = File(getExternalFilesDir(null), "BMIdata.json")//Get file or make file is needed
+        val gson = Gson()
+        FileWriter(file).use {
+            gson.toJson(values, it)// write to file to save
+        }
     }
 
+    //This functions returns a string based on the level of the BMI value
     private fun getCategory() : String
     {
         var result : String = "Meh";
@@ -157,6 +180,7 @@ class BMIActivity : AppCompatActivity() {
         return result;
     }
 
+    //This just resets all the data back to normal
     private fun ResetInput()
     {
         weightInput.setText("");
