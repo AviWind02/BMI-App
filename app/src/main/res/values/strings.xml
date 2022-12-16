@@ -8,5 +8,6 @@
     <string name="label_Weight_inputbox">Weight:</string>
     <string name="unit_1">Imperial</string>
     <string name="unit_2">Metric</string>
-
+    <string name="title_text">Title</string>
+    <string name="subtitle_text">Body</string>
 </resources>
